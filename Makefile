@@ -1,0 +1,26 @@
+CC = gcc
+
+CFLAGS = -c -Wall -Wextra -Werror -pedantic -g
+
+INCLUDE_FLAGS = -Iinclude
+
+LIB_SOURCE_DIRECTORY = source
+LIB_SOURCES = $(wildcard $(LIB_SOURCE_DIRECTORY)/*.c)
+LIB_OBJECTS = $(LIB_SOURCES:$(LIB_SOURCE_DIRECTORY)/%.c=$(LIB_SOURCE_DIRECTORY)/%.o)
+
+EXAMPLE_SOURCE_DIRECTORY = example
+EXAMPLE_SOURCES = $(wildcard $(EXAMPLE_SOURCE_DIRECTORY)/*.c)
+EXAMPLE_OBJECTS = $(EXAMPLE_SOURCES:$(EXAMPLE_SOURCE_DIRECTORY)/%.c=$(EXAMPLE_SOURCE_DIRECTORY)/%.o)
+
+.PHONY: all clean example
+all: example.exe
+
+example.exe: example
+example: $(LIB_OBJECTS) $(EXAMPLE_OBJECTS)
+	$(CC) $(LIB_OBJECTS) $(EXAMPLE_OBJECTS) -o $@
+
+$(LIB_SOURCE_DIRECTORY)/%.o: $(LIB_SOURCE_DIRECTORY)/%.c
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) $< -o $@
+
+run: example.exe
+	./example.exe
