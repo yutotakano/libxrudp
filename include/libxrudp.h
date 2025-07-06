@@ -1,6 +1,38 @@
 #ifndef LIBXRUDP_H
 #define LIBXRUDP_H
 
-#define TEST 1
+#include <stdint.h>
+
+#define XRUDP_PACKET_TYPE_INIT 0x01
+#define XRUDP_PACKET_TYPE_INIT_ACK 0x02
+#define XRUDP_PACKET_TYPE_DATA 0x03
+#define XRUDP_PACKET_TYPE_ACK 0x04
+#define XRUDP_PACKET_TYPE_NACK 0x05
+#define XRUDP_PACKET_TYPE_HEARTBEAT 0x06
+#define XRUDP_PACKET_TYPE_CLOSE 0x07
+#define XRUDP_PACKET_TYPE_CLOSE_ACK 0x08
+#define XRUDP_PACKET_TYPE_RESET 0x09
+#define XRUDP_PACKET_TYPE_STREAM 0x0A
+#define XRUDP_PACKET_TYPE_PATH_PROBE 0x0B
+#define XRUDP_PACKET_TYPE_PATH_ACK 0x0C
+#define XRUDP_PACKET_TYPE_EXT 0x0C
+
+#define XRUDP_PACKET_FLAG_ENCRYPTED 1
+#define XRUDP_PACKET_FLAG_AUTH 2
+#define XRUDP_PACKET_FLAG_COMPRESSED 4
+#define XRUDP_PACKET_FLAG_FEC 8
+#define XRUDP_PACKET_FLAG_MULTIPATH 16
+#define XRUDP_PACKET_FLAG_MULTISTREAM 32
+#define XRUDP_PACKET_FLAG_ECN 64
+#define XRUDP_PACKET_FLAG_PRIORITY 128
+
+struct xrudp_base_hdr {
+  uint8_t version;
+  uint8_t type;
+  uint16_t flags;
+  uint32_t connection_id;
+  uint32_t sequence_number;
+  uint32_t ack_number;
+};
 
 #endif
