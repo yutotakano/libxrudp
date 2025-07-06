@@ -22,5 +22,8 @@ example: $(LIB_OBJECTS) $(EXAMPLE_OBJECTS)
 $(LIB_SOURCE_DIRECTORY)/%.o: $(LIB_SOURCE_DIRECTORY)/%.c
 	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) $< -o $@
 
+$(EXAMPLE_SOURCE_DIRECTORY)/%.o: $(EXAMPLE_SOURCE_DIRECTORY)/%.c
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) $< -o $@
+
 run: example.exe
 	./example.exe
